@@ -2,7 +2,7 @@
 
 import { Message } from "@/types/Message";
 import Peer, { DataConnection } from "peerjs";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { FaCheck, FaCopy } from "react-icons/fa";
 
 
@@ -14,15 +14,15 @@ export default function Component() {
     const [peer, setPeer] = useState<Peer | null>(null);
     const [messages, setMessages] = useState<Message[]>([]);
     const [messageInput, setMessageInput] = useState('');
-
-    const messageNotification = new Audio("/audio/pop.mp3");
-
+    const audioRef = useRef<HTMLAudioElement | null>(null);
 
     function generateRandomID() {
         return Math.random().toString(36).substring(2, 8);
-    }
+    };
 
     useEffect(() => {
+        audioRef.current = new Audio("/audio/pop.mp3");
+
         const id: string = generateRandomID();
         const peer: Peer = new Peer(id); // register peer ID
 
@@ -34,7 +34,7 @@ export default function Component() {
                 // Wait for incoming data from the other side
                 conn.on("data", function (data) {
                     setMessages(prev => [...prev, { message: String(data), sender: "other" }])
-                    messageNotification.play()
+                    audioRef?.current?.play();
                 });
             });
         });
@@ -68,6 +68,7 @@ export default function Component() {
 
         conn.on("data", (data) => {
             setMessages(prev => [...prev, { message: String(data), sender: "other" }])
+            audioRef?.current?.play();
         });
     }
 
