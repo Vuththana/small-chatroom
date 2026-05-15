@@ -5,7 +5,7 @@ After cloning, You must run the peer-server in order for connection between clie
 node .\index.js
 ```
 
-Run the command to install the necessary dependencies
+After running the peer-server, you can open the peer-client and run the command to install the necessary dependencies
 ```bash
 npm install
 ```
