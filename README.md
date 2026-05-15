@@ -1,10 +1,16 @@
 ## small-chatroom
-After cloning, run the command to install the necessary dependencies
+
+After cloning, You must run the peer-server in order for connection between clients. Open the peer-server and run the command using
+```bash
+node .\index.js
+```
+
+Run the command to install the necessary dependencies
 ```bash
 npm install
 ```
 
-After that run the development server
+Run the development server
 ```bash
 npm run dev
 ```
